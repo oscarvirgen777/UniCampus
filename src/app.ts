@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { errorHandler } from "./middlewares/error-handlers";
 import { requestLogger } from "./middlewares/request-logger";
 import estudiantesRoutes from "./modules/Estudiantes/routes/estudiantesRoutes";   
+import matriculasRoutes from "./routers/matriculasRoute";   
 dotenv.config();
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 app.use("/api/estudiantes", estudiantesRoutes);
+app.use("/api/matriculas", matriculasRoutes);
 
 
 app.get('/api/health', (req, res) => {
