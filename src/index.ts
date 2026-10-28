@@ -9,8 +9,8 @@ const router = Router();
 
 router.use("/estudiantes", estudiantesRoutes);
 // router.use("/profesores", profesoresRoutes);
-router.use("/cursos", cursosRoutes);
+// router.use("/cursos", cursosRoutes);
 router.use("/matriculas", matriculasRoutes);
 // router.use("/asistencias", asistenciasRoutes);
 
-export default router;   
+export default router;
