@@ -3,7 +3,7 @@
     todosLosprofesores,
     unProfesor
  } 
- from "../controllers/controllerprof.ts";
+ from "../controllers/controllerprof.js";
  const router = Router();
 
  router.get("/api/profesor", todosLosprofesores);
