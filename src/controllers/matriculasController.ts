@@ -23,14 +23,15 @@ export const crearMatricula =
 // export
 export const actualizarMatricula = 
 (req: Request, res: Response) => {
-    const indice = Number(req.params.id);
-    if (!indice) {
-        res.status(400).json({ error: '400' });
+    const indice = matriculas.findIndex( m => m.id === Number(req.params.id));
+    if (indice === -1) {
+        res.status(404).json({error: '404 Not Found'})
+        return
     }
-    matriculas[indice] = { ...matriculas[indice], ...req.body, id: indice }
+    matriculas[indice] = {...matriculas[indice], ...req.body, id: matriculas[indice]?.id};
     res.status(202).json(matriculas[indice]);
 }
-
+    
 // desactivarMatricula
 
 export const eliminarMatriculaPermanente = 
