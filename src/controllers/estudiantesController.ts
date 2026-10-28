@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { estudiantes, Estudiante } from "../data/estudiantes";
-import { AppError } from "../../../middlewares/error-handlers";
+import { AppError } from "../middlewares/error-handlers";
 
 // GET /api/estudiantes
 export function getEstudiantes(_req: Request, res: Response) {
