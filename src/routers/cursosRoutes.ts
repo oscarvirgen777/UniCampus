@@ -10,10 +10,10 @@ import { middlewareCursos } from "../middlewares/cursosMiddlewares";
 
 const router = Router();
 
-router.get("/api/cursos", listaCursos);
-router.get("/api/cursos/:id", listaCursoId);
-router.post("/api/cursos", middlewareCursos, agregarCurso);
-router.put("/api/cursos/:id", middlewareCursos, actualizarCurso);
-router.delete("/api/cursos/:id", eliminarCurso);
+router.get("/", listaCursos);
+router.get("/:id", listaCursoId);
+router.post("/", middlewareCursos, agregarCurso);
+router.put("/:id", middlewareCursos, actualizarCurso);
+router.delete("/:id", eliminarCurso);
 
 export default router;
