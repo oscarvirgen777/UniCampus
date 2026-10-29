@@ -4,6 +4,12 @@ import { AppError } from "../middlewares/error-handlers";
 
 
 export function todosLosprofesores(req: Request, res: Response) {
+   /* 
+    #swagger.tags = ['profesor']
+    #swagger.description = 'Endpoint para obtener todos los profesores registrados'
+    
+    }]
+  */
   return res.status(200).json({
     ok: true,
     mensaje: "lista de profesores",
@@ -12,6 +18,17 @@ export function todosLosprofesores(req: Request, res: Response) {
 }
 
 export function unProfesor(req: Request, res: Response) {
+   /* #swagger.tags = ['profesor'] 
+    #swagger.description = 'Endpoint para obtener un profesor en especifico por su ID'
+    #swagger.parameters['id'] = {
+      description: 'ID de postgresql o identificador único del profesor',
+      type: 'string',
+      required: true,
+      example: '12438'
+    }
+      
+    }]
+  */
   let idBuscar = (req.params.id);
   let profesorEncontrado = profesores.find(
     (p: Profesor) => p.id === idBuscar,
@@ -30,6 +47,23 @@ export function unProfesor(req: Request, res: Response) {
   });
 }
 export function crearProfesor(req: Request, res: Response) {
+  /* #swagger.tags = ['profesor'] 
+    #swagger.description = 'Endpoint para crear un profesor nuevo'
+    #swagger.parameters['nuevoLibro'] = {
+      in: 'body',
+      description: 'Información del profesor  a crear',
+      required: true,
+      schema: {
+        cedula: "string",
+        nombres: "string",
+        correoInstitucional: "string",
+        tiempoCompleto: true
+      }
+    }
+      #swagger.security = [{
+      "ApiKeyAuth": []
+    }]
+  */
   const { cedula, nombres, correoInstitucional, tiempoCompleto } = req.body;
 
   if (!correoInstitucional) {
@@ -60,6 +94,12 @@ export function crearProfesor(req: Request, res: Response) {
 }
 
 export function actualizarProfesor(req: Request, res: Response) {
+  /* #swagger.tags = ['profesor'] 
+  #swagger.description = 'Endpoint para actualizar el registro de un profesor existente'
+
+  #swagger.security = [{
+      "ApiKeyAuth": []
+    }]*/
  const { id } = req.params;
  const { cedula, nombres, correoInstitucional, tiempoCompleto } = req.body;
   const profesorExistente = profesores.find(p => p.id === id);
@@ -82,6 +122,11 @@ return res.status(200).json({
 }
 
 export function eliminarProfesor(req: Request, res: Response) {
+  /* #swagger.tags = ['profesor'] 
+  #swagger.description = 'Endpoint para eliminar de manera logica (soft delete) un registro'
+  #swagger.security = [{
+      "ApiKeyAuth": []
+    }]*/
   const { id } = req.params;
   
   const index = profesores.findIndex(p => p.id === id); 
