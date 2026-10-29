@@ -1,7 +1,15 @@
 // import { type Matriculas, obtenerSiguienteId, matriculas} from "../data/matriculasData";
 import type { Request, Response } from "express";
-import { type Matriculas} from "../interfaces/matriculasInterface";
 import { matriculas, obtenerSiguienteId} from "../data/matriculasData";
+
+export interface Matricula {
+  id: number;
+  estudianteId: number;
+  cursoId: number;
+  semestre: string;
+  notaFinal: number | null;
+}
+
 
 
 export const listarMatriculas =
@@ -10,8 +18,15 @@ export const listarMatriculas =
 }
 
 // obtenerMatriculaPorId
-
-// export
+export const obtenerMatriculaPorId = (req: Request, res: Response) => {
+  const matricula = matriculas.find((m) => m.id === Number(req.params.id));
+  if (!matricula) {
+    res.status(404).json({ error: "404 Not Found" });
+    return;
+  }
+  res.status(200).json(matricula);
+};
+// post
 export const crearMatricula = 
 (req: Request, res: Response) => {
     const { estudianteId, cursoId, semestre, notaFinal } = req.body;

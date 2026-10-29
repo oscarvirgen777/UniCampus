@@ -46,26 +46,24 @@ export function agregarCurso(req: Request, res: Response) {
 }
 
 export function actualizarCurso(req: Request, res: Response) {
+  const { id } = req.params;
   const { codigoCurso, nombreMateria, creditos, profesorId } = req.body;
-  const findingId = Number(req.params.id);
-  const curso = cursos.find((c) => c.id === findingId);
+
+const curso = cursos.find((c) => c.id === Number(id));
 
   if (!curso) {
-    return res.status(404).json({
-      ok: false,
-      mensaje: `Curso con ID: ${findingId} no encontrado.`,
-    });
+    return res.status(404).json({ ok: false, mensaje: "Curso no encontrado" });
   }
 
   if (codigoCurso) curso.codigoCurso = codigoCurso;
   if (nombreMateria) curso.nombreMateria = nombreMateria;
-  if (creditos) curso.creditos = creditos;
-  if (profesorId) curso.profesorId = profesorId;
+  if (creditos !== undefined) curso.creditos = creditos;
+  if (profesorId !== undefined) curso.profesorId = profesorId;
 
-  res.status(200).json({
+  return res.status(200).json({
     ok: true,
-    mensaje: `Curso con ID: ${findingId} actualizado con éxito.`,
-    curso: curso,
+    mensaje: "Curso actualizado con éxito",
+    data: curso,
   });
 }
 

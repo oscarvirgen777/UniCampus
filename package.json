@@ -1,6 +1,4 @@
 {
-<<<<<<< HEAD
-=======
   "name": "unicampus",
   "version": "1.0.0",
   "description": "",
@@ -14,19 +12,14 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
->>>>>>> 78cd3782acecba1d4fdd986cf6a5141feb4cc5c4
   "dependencies": {
     "express": "^5.3.0"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@types/express": "^5.0.6"
-=======
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
->>>>>>> 78cd3782acecba1d4fdd986cf6a5141feb4cc5c4
   }
 }

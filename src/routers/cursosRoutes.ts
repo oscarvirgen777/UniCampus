@@ -13,7 +13,7 @@ const router = Router();
 router.get("/", listaCursos);
 router.get("/:id", listaCursoId);
 router.post("/", middlewareCursos, agregarCurso);
-router.put("/:id", middlewareCursos, actualizarCurso);
+router.put("/:id", actualizarCurso);
 router.delete("/:id", eliminarCurso);
 
 export default router;
