@@ -9,15 +9,8 @@ import cursosRoutes from "./routers/cursosRoutes";
 import matriculasRoutes from "./routers/matriculasRoute";
 import asistenciasRoutes from "./routers/asistenciasRoutes";
 import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger_output.json";
 
-const swaggerDocument = {
-  openapi: "3.0.0",
-  info: {
-    title: "UniCampus API",
-    version: "1.0.0",
-  },
-  paths: {},
-};
 
 dotenv.config();
 
