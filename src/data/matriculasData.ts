@@ -1,12 +1,11 @@
-/* 
+
 export interface Matriculas {
   id: number;
   estudianteId: number;
   cursoId: number;
   semestre: number;
   notaFinal: number;
-} */
-import { type Matriculas } from "../interfaces/matriculasInterface";
+}
 
 
 export const matriculas: Matriculas[] = [

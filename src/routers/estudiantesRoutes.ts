@@ -6,8 +6,8 @@ import {
   actualizarEstudiante,
   softDeleteEstudiante,
   hardDeleteEstudiante,
-} from "../controller/estudiantesController";
-import { validate } from "../../../middlewares/validate";
+} from "../controllers/estudiantesController";
+import { validate } from "../middlewares/validate";
 
 
 import {
