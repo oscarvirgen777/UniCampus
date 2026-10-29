@@ -9,13 +9,8 @@ import cursosRoutes from "./routers/cursosRoutes";
 import matriculasRoutes from "./routers/matriculasRoute";
 import asistenciasRoutes from "./routers/asistenciasRoutes";
 import swaggerUi from "swagger-ui-express";
-import path from 'path';
-import fs from 'fs';
+import swaggerDocument from "./swagger_output.json";
 
-// Lee el archivo JSON generado por swagger-autogen
-const swaggerDocument = JSON.parse(
-  fs.readFileSync(path.join(__dirname, './swagger_output.json'), 'utf8')
-);
 
 dotenv.config();
 

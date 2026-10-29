@@ -10,36 +10,54 @@
   "schemes": [
     "http"
   ],
+  "tags": [
+  { "name": "Estudiantes", "description": "Gestión de estudiantes" },
+  { "name": "Asistencias", "description": "Gestión de asistencias" },
+  { "name": "Cursos", "description": "Gestión de cursos" },
+  { "name": "Matriculas", "description": "Gestión de matrículas" },
+  { "name": "Profesores", "description": "Gestión de Profesores" }
+],
   "paths": {
-    "/estudiantes/": {
+    "/estudiantes": {
       "get": {
+        "tags": ["Estudiantes"],
+        "summary": "Listar todos los estudiantes",
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Lista de estudiantes"
           }
         }
       },
       "post": {
+        "tags": ["Estudiantes"],
+        "summary": "Crear un estudiante",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "codigoEstudiante": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "EST-001"
                 },
                 "nombres": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Juan Pérez"
                 },
                 "carrera": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Ingeniería en Sistemas"
                 },
                 "promedioAcumulado": {
-                  "example": "any"
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10,
+                  "example": 8.5
                 }
               }
             }
@@ -47,10 +65,13 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Estudiante Creado"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Datos invalidos"
+          },
+          "409": {
+            "description": "Codigo ya registrado"
           }
         }
       }
@@ -155,36 +176,34 @@
         }
       },
       "post": {
+          "tags": ["Asistencias"],
+            "summary": "Crear una asistencia",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
-              "properties": {
-                "matriculaId": {
-                  "example": "any"
-                },
-                "fecha": {
-                  "example": "any"
-                },
-                "presente": {
-                  "example": "any"
-                },
-                "observaciones": {
-                  "example": "any"
+             "properties": {
+          "matriculaId": { "type": "integer", "example": 1 },
+          "fecha": { "type": "string", "format": "date", "example": "2026-01-15" },
+          "presente": { "type": "boolean", "example": true },
+          "observaciones": { "type": "string", "example": "Falta justificada" }
                 }
               }
-            }
+            
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Asistencia Creada"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Datos inválidos",
+                "409": 
+                { "description": "Asistencia duplicada" }
           }
         }
       }
@@ -571,5 +590,58 @@
         }
       }
     }
+  },
+  "definitions": {
+  "Estudiante": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "integer", "example": 1 },
+      "codigoEstudiante": { "type": "string", "example": "EST-001" },
+      "nombres": { "type": "string", "example": "Juan Pérez" },
+      "carrera": { "type": "string", "example": "Ingeniería en Sistemas" },
+      "promedioAcumulado": { "type": "number", "example": 8.5 },
+      "eliminado": { "type": "boolean", "example": false }
+    }
+  },
+  "Asistencia": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "integer", "example": 1 },
+      "matriculaId": { "type": "integer", "example": 1 },
+      "fecha": { "type": "string", "format": "date", "example": "2026-01-15" },
+      "presente": { "type": "boolean", "example": true },
+      "observaciones": { "type": "string", "example": null }
+    }
+  },
+  "Curso": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "integer", "example": 1 },
+      "codigoCurso": { "type": "string", "example": "CS-101" },
+      "nombreMateria": { "type": "string", "example": "Programación I" },
+      "creditos": { "type": "integer", "example": 8 },
+      "profesorId": { "type": "integer", "example": 1 }
+    }
+  },
+  "Matricula": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "integer", "example": 1 },
+      "estudianteId": { "type": "integer", "example": 1 },
+      "cursoId": { "type": "integer", "example": 1 },
+      "semestre": { "type": "string", "example": "2026-1" },
+      "notaFinal": { "type": "number", "example": 9.0 }
+    }
+  },
+"Profesor": {
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "example": "1" },
+    "cedula": { "type": "string", "example": "1020456789" },
+    "nombres": { "type": "string", "example": "Carlos Ramírez" },
+    "correoInstitucional": { "type": "string", "example": "c.ramirez@unicampus.edu.co" },
+    "tiempoCompleto": { "type": "boolean", "example": true }
+  }
+}
   }
 }
