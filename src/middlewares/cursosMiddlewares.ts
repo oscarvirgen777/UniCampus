@@ -1,5 +1,20 @@
 import type { Request, Response, NextFunction } from "express";
 
+const apiKeyCursos = process.env.API_KEY || 'cursosjuan2026';
+
+export function validarApiKey(req: Request, res: Response, next: NextFunction): void {
+  const apiKeyHeader = req.headers['x-api-key'];
+
+  if (!apiKeyHeader || apiKeyHeader !== apiKeyCursos) {
+    res.status(401).json({ 
+      error: 'Acceso no autorizado. Se requiere una clave valida.' 
+    });
+    return;
+  }
+
+  next();
+}
+
 export function middlewareCursos(
   req: Request,
   res: Response,

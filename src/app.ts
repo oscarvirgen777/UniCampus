@@ -32,7 +32,6 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-
 app.use(errorHandler);
 
 export default app;   

@@ -300,7 +300,10 @@
     },
     "/cursos/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Cursos"
+        ],
+        "description": "Endpoint para obtener todos los cursos",
         "responses": {
           "200": {
             "description": "OK"
@@ -308,25 +311,39 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Cursos"
+        ],
+        "description": "Endpoint para crear un curso nuevo",
         "parameters": [
           {
-            "name": "body",
+            "name": "x-api-key",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "nuevoCurso",
             "in": "body",
+            "description": "Información del curso a crear",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "codigoCurso": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "string"
                 },
                 "nombreMateria": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "string"
                 },
                 "creditos": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 2
                 },
                 "profesorId": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 3
                 }
               }
             }
@@ -338,19 +355,32 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/cursos/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Cursos"
+        ],
+        "description": "Endpoint para obtener un curso en especifico por su ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID de postgresql o identificador único del curso",
+            "example": "12438"
           }
         ],
         "responses": {
@@ -363,12 +393,20 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Cursos"
+        ],
+        "description": "Endpoint para actualizar datos de un curso existente",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
             "type": "string"
           },
           {
@@ -397,18 +435,37 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Cursos"
+        ],
+        "description": "Endpoint para eliminar de manera fisica un curso por su ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
             "type": "string"
           }
         ],
@@ -416,10 +473,18 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/matriculas/": {
