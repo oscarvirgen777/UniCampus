@@ -1,5 +1,6 @@
 import type { Response, Request } from "express";
 import { Profesor, profesores } from "../data/profesores";
+import { AppError } from "../middlewares/error-handlers";
 
 
 export function todosLosprofesores(req: Request, res: Response) {
@@ -29,27 +30,33 @@ export function unProfesor(req: Request, res: Response) {
   });
 }
 export function crearProfesor(req: Request, res: Response) {
-  const { id, cedula, nombres, correoInstitucional, tiempoCompleto } = req.body;
+  const { cedula, nombres, correoInstitucional, tiempoCompleto } = req.body;
+
   if (!correoInstitucional) {
-        return res.status(400).json({
-            ok: false,
-            mensaje: "El correo institucional del profesor es obligatorio"
-        });
-    }
-    const nuevoProfesor = {
-        id: id || profesores.length + 1, 
-        cedula,
-        nombres,
-        correoInstitucional,
-        tiempoCompleto,
-        activo: true
-       };
-         profesores.push(nuevoProfesor);
-         return res.status(201).json({
-        ok: true,
-        mensaje: "Profesor creado con éxito",
-        data: nuevoProfesor
+    return res.status(400).json({
+      ok: false,
+      mensaje: "El correo institucional del profesor es obligatorio"
     });
+  }
+
+  const mayorId = profesores.reduce((max, p) => Math.max(max, parseInt(p.id)), 0);
+  const nuevoId = String(mayorId + 1);
+
+  const nuevoProfesor = {
+    id: nuevoId,
+    cedula,
+    nombres,
+    correoInstitucional,
+    tiempoCompleto,
+    activo: true
+  };
+
+  profesores.push(nuevoProfesor);
+  return res.status(201).json({
+    ok: true,
+    mensaje: "Profesor creado con éxito",
+    data: nuevoProfesor
+  });
 }
 
 export function actualizarProfesor(req: Request, res: Response) {
@@ -94,5 +101,6 @@ export function eliminarProfesor(req: Request, res: Response) {
       data: profesorEliminado
   });
 }
+
 
 
