@@ -8,6 +8,16 @@ import profesoresRoutes from "./routers/routesprof";
 import cursosRoutes from "./routers/cursosRoutes";
 import matriculasRoutes from "./routers/matriculasRoute";
 import asistenciasRoutes from "./routers/asistenciasRoutes";
+import swaggerUi from "swagger-ui-express";
+
+const swaggerDocument = {
+  openapi: "3.0.0",
+  info: {
+    title: "UniCampus API",
+    version: "1.0.0",
+  },
+  paths: {},
+};
 
 dotenv.config();
 
@@ -22,6 +32,8 @@ app.use("/api/profesores", profesoresRoutes);
 app.use("/api/cursos", cursosRoutes);
 app.use("/api/matriculas", matriculasRoutes);
 app.use("/api/asistencias", asistenciasRoutes);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
