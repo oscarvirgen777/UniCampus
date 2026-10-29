@@ -11,4 +11,4 @@ router.use("/asistencias", asistenciasRoutes);
 router.use("/cursos", cursosRoutes);
 router.use("/matriculas", matriculasRoutes);
 
-export default router;   
+export default router;
