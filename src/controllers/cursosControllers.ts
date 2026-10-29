@@ -2,6 +2,11 @@ import type { Response, Request } from "express";
 import { type Curso, cursos } from "../data/cursos";
 
 export function listaCursos(req: Request, res: Response) {
+  /* 
+    #swagger.tags = ['Cursos']
+    #swagger.description = 'Endpoint para obtener todos los cursos'
+  */
+
   res.status(200).json({
     ok: true,
     mensaje: "Lista de cursos",
@@ -10,13 +15,23 @@ export function listaCursos(req: Request, res: Response) {
 }
 
 export function listaCursoId(req: Request, res: Response) {
+  /* #swagger.tags = ['Cursos'] 
+    #swagger.description = 'Endpoint para obtener un curso en especifico por su ID'
+    #swagger.parameters['id'] = {
+      description: 'ID de postgresql o identificador único del curso',
+      type: 'string',
+      required: true,
+      example: '12438'
+    }
+  */
+
   const requestedId = Number(req.params.id);
   const findingCurso = cursos.find((c) => c.id === requestedId);
 
   if (!findingCurso) {
     return res.status(404).json({
       ok: false,
-      mensaje: `No es encontró un alumno de ID: ${requestedId}`,
+      mensaje: `No es encontró un curso de ID: ${requestedId}`,
     });
   }
 
@@ -27,6 +42,25 @@ export function listaCursoId(req: Request, res: Response) {
 }
 
 export function agregarCurso(req: Request, res: Response) {
+  /*
+    #swagger.tags = ['Cursos'] 
+    #swagger.description = 'Endpoint para crear un curso nuevo'
+    #swagger.parameters['nuevoCurso'] = {
+      in: 'body',
+      description: 'Información del curso a crear',
+      required: true,
+      schema: {
+        codigoCurso: "string",
+        nombreMateria: "string",
+        creditos: 2,
+        profesorId: 3,
+      }
+    }
+  
+      #swagger.security = [{
+      "ApiKeyAuth": []
+    }] */
+
   const { codigoCurso, nombreMateria, creditos, profesorId } = req.body;
 
   let nuevoCurso: Curso = {
@@ -46,10 +80,18 @@ export function agregarCurso(req: Request, res: Response) {
 }
 
 export function actualizarCurso(req: Request, res: Response) {
+
+  /* #swagger.tags = ['Cursos'] 
+  #swagger.description = 'Endpoint para actualizar datos de un curso existente'
+
+  #swagger.security = [{
+      "ApiKeyAuth": []
+    }]*/
+
   const { id } = req.params;
   const { codigoCurso, nombreMateria, creditos, profesorId } = req.body;
 
-const curso = cursos.find((c) => c.id === Number(id));
+  const curso = cursos.find((c) => c.id === Number(id));
 
   if (!curso) {
     return res.status(404).json({ ok: false, mensaje: "Curso no encontrado" });
@@ -68,6 +110,14 @@ const curso = cursos.find((c) => c.id === Number(id));
 }
 
 export function eliminarCurso(req: Request, res: Response) {
+
+  /* #swagger.tags = ['Cursos'] 
+  #swagger.description = 'Endpoint para eliminar de manera fisica un curso por su ID'
+  #swagger.security = [{
+      "ApiKeyAuth": []
+    }]
+  */
+
   const findingId = Number(req.params.id);
   const foundCurso = cursos.findIndex((c) => c.id === findingId);
 
