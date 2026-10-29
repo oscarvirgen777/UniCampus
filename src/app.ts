@@ -7,7 +7,8 @@ import estudiantesRoutes from "./routers/estudiantesRoutes";
 //import profesoresRoutes from "Profesores/routes/profesoresRoutes";
 //import cursosRoutes from "Cursos/routes/cursosRoutes";
 //import matriculasRoutes from ".Matriculas/routes/matriculasRoutes";
-import asistenciasRoutes from "./routes/asistenciasRoutes";
+import asistenciasRoutes from "./routers/asistenciasRoutes";
+
 
 dotenv.config();
 

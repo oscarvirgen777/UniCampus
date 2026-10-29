@@ -20,5 +20,6 @@ export const crearAsistenciaSchema = z.object({
   presente: z.boolean(),
   observaciones: z.string().nullable().optional(),
 });
+ 
 
 export const actualizarAsistenciaSchema = crearAsistenciaSchema.partial();   

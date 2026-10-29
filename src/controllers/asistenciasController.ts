@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { asistencias, Asistencia } from "../data/asistencias";
+import { asistencias, Asistencia } from "../data/asistencias";   
 import { AppError } from "../middlewares/error-handlers";
 
 // GET /api/asistencias

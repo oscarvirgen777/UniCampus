@@ -5,10 +5,13 @@ import {
   crearAsistencia,
   actualizarAsistencia,
   softDeleteAsistencia,
-  hardDeleteAsistencia,
-} from "./controllers/asistenciasControllers";
+  hardDeleteAsistencia
+} from "../controllers/asistenciasController";
 import { validate } from "../middlewares/validate";
-import { crearAsistenciaSchema, actualizarAsistenciaSchema } from "../data/asistencias";
+import {
+  crearAsistenciaSchema,
+  actualizarAsistenciaSchema
+} from "../data/asistencias";
 
 const router = Router();
 

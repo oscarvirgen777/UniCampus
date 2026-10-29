@@ -5,8 +5,7 @@ export interface Matriculas {
   cursoId: number;
   semestre: number;
   notaFinal: number;
-
-import { type Matriculas } from "/matriculasInterface";
+}
 
 let idNext = 0;
 
