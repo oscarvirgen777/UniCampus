@@ -9,15 +9,13 @@ import cursosRoutes from "./routers/cursosRoutes";
 import matriculasRoutes from "./routers/matriculasRoute";
 import asistenciasRoutes from "./routers/asistenciasRoutes";
 import swaggerUi from "swagger-ui-express";
+import path from 'path';
+import fs from 'fs';
 
-const swaggerDocument = {
-  openapi: "3.0.0",
-  info: {
-    title: "UniCampus API",
-    version: "1.0.0",
-  },
-  paths: {},
-};
+// Lee el archivo JSON generado por swagger-autogen
+const swaggerDocument = JSON.parse(
+  fs.readFileSync(path.join(__dirname, './swagger_output.json'), 'utf8')
+);
 
 dotenv.config();
 
@@ -38,7 +36,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
-
 
 app.use(errorHandler);
 

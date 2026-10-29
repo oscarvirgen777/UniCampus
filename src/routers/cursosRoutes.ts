@@ -6,14 +6,14 @@ import {
   actualizarCurso,
   eliminarCurso,
 } from "../controllers/cursosControllers";
-import { middlewareCursos } from "../middlewares/cursosMiddlewares";
+import { validarApiKey, middlewareCursos } from "../middlewares/cursosMiddlewares";
 
 const router = Router();
 
 router.get("/", listaCursos);
 router.get("/:id", listaCursoId);
-router.post("/", middlewareCursos, agregarCurso);
-router.put("/:id", actualizarCurso);
-router.delete("/:id", eliminarCurso);
+router.post("/", validarApiKey, middlewareCursos, agregarCurso);
+router.put("/:id", validarApiKey, middlewareCursos, actualizarCurso);
+router.delete("/:id", validarApiKey, eliminarCurso);
 
 export default router;
