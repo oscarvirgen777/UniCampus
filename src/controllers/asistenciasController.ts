@@ -1,13 +1,142 @@
 import { Request, Response } from "express";
 import { asistencias, Asistencia } from "../data/asistencias";   
 import { AppError } from "../middlewares/error-handlers";
-
+/**
+ * @swagger
+ * /api/asistencias:
+ *   get:
+ *     summary: Listar todas las asistencias
+ *     tags: [Asistencias]
+ *     responses:
+ *       200:
+ *         description: Lista de asistencias
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Asistencia'
+ *   post:
+ *     summary: Crear una asistencia
+ *     tags: [Asistencias]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [matriculaId, fecha, presente]
+ *             properties:
+ *               matriculaId:
+ *                 type: integer
+ *                 example: 1
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *                 example: "2026-01-15"
+ *               presente:
+ *                 type: boolean
+ *                 example: true
+ *               observaciones:
+ *                 type: string
+ *                 nullable: true
+ *                 example: "Falta justificada"
+ *     responses:
+ *       201:
+ *         description: Asistencia creada
+ *       400:
+ *         description: Datos inválidos
+ *       404:
+ *         description: Matrícula no encontrada
+ *       409:
+ *         description: Asistencia duplicada
+ */
 // GET /api/asistencias
 export function getAsistencias(_req: Request, res: Response) {
   const activos = asistencias.filter((a) => !a.eliminado);
   res.json({ success: true, data: activos });
 }
-
+/**
+ * @swagger
+ * /api/asistencias/{id}:
+ *   get:
+ *     summary: Obtener asistencia por ID
+ *     tags: [Asistencias]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Asistencia encontrada
+ *       404:
+ *         description: Asistencia no encontrada
+ *   put:
+ *     summary: Actualizar asistencia
+ *     tags: [Asistencias]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               matriculaId:
+ *                 type: integer
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *               presente:
+ *                 type: boolean
+ *               observaciones:
+ *                 type: string
+ *                 nullable: true
+ *     responses:
+ *       200:
+ *         description: Asistencia actualizada
+ *       404:
+ *         description: Asistencia no encontrada
+ *   patch:
+ *     summary: Soft delete (desactivar asistencia)
+ *     tags: [Asistencias]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Asistencia desactivada
+ *       404:
+ *         description: Asistencia no encontrada
+ *   delete:
+ *     summary: Hard delete (eliminar permanentemente)
+ *     tags: [Asistencias]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Asistencia eliminada
+ *       404:
+ *         description: Asistencia no encontrada
+ */
 // GET /api/asistencias/:id
 export function getAsistenciaById(req: Request, res: Response) {
   const id = Number(req.params.id);
