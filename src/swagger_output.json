@@ -10,54 +10,36 @@
   "schemes": [
     "http"
   ],
-  "tags": [
-  { "name": "Estudiantes", "description": "Gestión de estudiantes" },
-  { "name": "Asistencias", "description": "Gestión de asistencias" },
-  { "name": "Cursos", "description": "Gestión de cursos" },
-  { "name": "Matriculas", "description": "Gestión de matrículas" },
-  { "name": "Profesores", "description": "Gestión de Profesores" }
-],
   "paths": {
-    "/estudiantes": {
+    "/estudiantes/": {
       "get": {
-        "tags": ["Estudiantes"],
-        "summary": "Listar todos los estudiantes",
         "description": "",
         "responses": {
           "200": {
-            "description": "Lista de estudiantes"
+            "description": "OK"
           }
         }
       },
       "post": {
-        "tags": ["Estudiantes"],
-        "summary": "Crear un estudiante",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "codigoEstudiante": {
-                  "type": "string",
-                  "example": "EST-001"
+                  "example": "any"
                 },
                 "nombres": {
-                  "type": "string",
-                  "example": "Juan Pérez"
+                  "example": "any"
                 },
                 "carrera": {
-                  "type": "string",
-                  "example": "Ingeniería en Sistemas"
+                  "example": "any"
                 },
                 "promedioAcumulado": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 10,
-                  "example": 8.5
+                  "example": "any"
                 }
               }
             }
@@ -65,13 +47,10 @@
         ],
         "responses": {
           "201": {
-            "description": "Estudiante Creado"
+            "description": "Created"
           },
           "400": {
-            "description": "Datos invalidos"
-          },
-          "409": {
-            "description": "Codigo ya registrado"
+            "description": "Bad Request"
           }
         }
       }
@@ -176,34 +155,36 @@
         }
       },
       "post": {
-          "tags": ["Asistencias"],
-            "summary": "Crear una asistencia",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
               "type": "object",
-             "properties": {
-          "matriculaId": { "type": "integer", "example": 1 },
-          "fecha": { "type": "string", "format": "date", "example": "2026-01-15" },
-          "presente": { "type": "boolean", "example": true },
-          "observaciones": { "type": "string", "example": "Falta justificada" }
+              "properties": {
+                "matriculaId": {
+                  "example": "any"
+                },
+                "fecha": {
+                  "example": "any"
+                },
+                "presente": {
+                  "example": "any"
+                },
+                "observaciones": {
+                  "example": "any"
                 }
               }
-            
+            }
           }
         ],
         "responses": {
           "201": {
-            "description": "Asistencia Creada"
+            "description": "Created"
           },
           "400": {
-            "description": "Datos inválidos",
-                "409": 
-                { "description": "Asistencia duplicada" }
+            "description": "Bad Request"
           }
         }
       }
@@ -589,59 +570,165 @@
           }
         }
       }
+    },
+    "/profesores/": {
+      "get": {
+        "tags": [
+          "profesor"
+        ],
+        "description": "Endpoint para obtener todos los profesores registrados",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "profesor"
+        ],
+        "description": "Endpoint para crear un profesor nuevo",
+        "parameters": [
+          {
+            "name": "nuevoLibro",
+            "in": "body",
+            "description": "Información del profesor a crear",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cedula": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "nombres": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "correoInstitucional": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "tiempoCompleto": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/profesores/{id}": {
+      "get": {
+        "tags": [
+          "profesor"
+        ],
+        "description": "Endpoint para obtener un profesor en especifico por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID de postgresql o identificador único del profesor",
+            "example": "12438"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "profesor"
+        ],
+        "description": "Endpoint para actualizar el registro de un profesor existente",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cedula": {
+                  "example": "any"
+                },
+                "nombres": {
+                  "example": "any"
+                },
+                "correoInstitucional": {
+                  "example": "any"
+                },
+                "tiempoCompleto": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "profesor"
+        ],
+        "description": "Endpoint para eliminar de manera logica (soft delete) un registro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
     }
-  },
-  "definitions": {
-  "Estudiante": {
-    "type": "object",
-    "properties": {
-      "id": { "type": "integer", "example": 1 },
-      "codigoEstudiante": { "type": "string", "example": "EST-001" },
-      "nombres": { "type": "string", "example": "Juan Pérez" },
-      "carrera": { "type": "string", "example": "Ingeniería en Sistemas" },
-      "promedioAcumulado": { "type": "number", "example": 8.5 },
-      "eliminado": { "type": "boolean", "example": false }
-    }
-  },
-  "Asistencia": {
-    "type": "object",
-    "properties": {
-      "id": { "type": "integer", "example": 1 },
-      "matriculaId": { "type": "integer", "example": 1 },
-      "fecha": { "type": "string", "format": "date", "example": "2026-01-15" },
-      "presente": { "type": "boolean", "example": true },
-      "observaciones": { "type": "string", "example": null }
-    }
-  },
-  "Curso": {
-    "type": "object",
-    "properties": {
-      "id": { "type": "integer", "example": 1 },
-      "codigoCurso": { "type": "string", "example": "CS-101" },
-      "nombreMateria": { "type": "string", "example": "Programación I" },
-      "creditos": { "type": "integer", "example": 8 },
-      "profesorId": { "type": "integer", "example": 1 }
-    }
-  },
-  "Matricula": {
-    "type": "object",
-    "properties": {
-      "id": { "type": "integer", "example": 1 },
-      "estudianteId": { "type": "integer", "example": 1 },
-      "cursoId": { "type": "integer", "example": 1 },
-      "semestre": { "type": "string", "example": "2026-1" },
-      "notaFinal": { "type": "number", "example": 9.0 }
-    }
-  },
-"Profesor": {
-  "type": "object",
-  "properties": {
-    "id": { "type": "string", "example": "1" },
-    "cedula": { "type": "string", "example": "1020456789" },
-    "nombres": { "type": "string", "example": "Carlos Ramírez" },
-    "correoInstitucional": { "type": "string", "example": "c.ramirez@unicampus.edu.co" },
-    "tiempoCompleto": { "type": "boolean", "example": true }
-  }
-}
   }
 }
