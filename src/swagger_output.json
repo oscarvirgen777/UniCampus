@@ -470,33 +470,78 @@
     },
     "/matriculas/": {
       "get": {
+        "tags": [
+          "Matrículas"
+        ],
+        "summary": "Listar todas las matrículas",
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Lista de matrículas",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "estudianteId": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "cursoId": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "semestre": {
+                    "type": "string",
+                    "example": "2026-I"
+                  },
+                  "notaFinal": {
+                    "type": "number",
+                    "example": 7
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "post": {
+        "tags": [
+          "Matrículas"
+        ],
+        "summary": "Registrar una nueva matrícula",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Datos de la matrícula",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "estudianteId": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 1
                 },
                 "cursoId": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 1
                 },
                 "semestre": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "2026-I"
                 },
                 "notaFinal": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 7
                 }
               }
             }
@@ -506,67 +551,266 @@
           "200": {
             "description": "OK"
           },
+          "201": {
+            "description": "Matrícula creada correctamente",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 6
+                },
+                "estudianteId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "cursoId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "semestre": {
+                  "type": "string",
+                  "example": "2026-I"
+                },
+                "notaFinal": {
+                  "type": "number",
+                  "example": 7
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
           "400": {
-            "description": "Bad Request"
+            "description": "Datos incorrectos"
           }
         }
       }
     },
     "/matriculas/{id}": {
       "get": {
+        "tags": [
+          "Matrículas"
+        ],
+        "summary": "Obtener matrícula por ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "ID de la matrícula",
+            "minimum": 1,
+            "example": 1
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Matrícula encontrada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "estudianteId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "cursoId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "semestre": {
+                  "type": "string",
+                  "example": "2026-I"
+                },
+                "notaFinal": {
+                  "type": "number",
+                  "example": 6
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Matrícula no encontrada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "404 Not Found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "put": {
+        "tags": [
+          "Matrículas"
+        ],
+        "summary": "Actualizar una matrícula",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "ID de la matrícula",
+            "minimum": 1,
+            "example": 1
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos actualizados de la matrícula",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "estudianteId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "cursoId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "semestre": {
+                  "type": "string",
+                  "example": "2026-I"
+                },
+                "notaFinal": {
+                  "type": "number",
+                  "example": 7
+                }
+              }
+            }
           }
         ],
         "responses": {
           "202": {
-            "description": "Accepted"
+            "description": "Matrícula actualizada correctamente",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "estudianteId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "cursoId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "semestre": {
+                  "type": "string",
+                  "example": "2026-I"
+                },
+                "notaFinal": {
+                  "type": "number",
+                  "example": 7
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Matrícula no encontrada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "404 Not Found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "delete": {
+        "tags": [
+          "Matrículas"
+        ],
+        "summary": "Eliminar una matrícula",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "ID de la matrícula",
+            "minimum": 1,
+            "example": 1
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Matrícula eliminada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "estudianteId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "cursoId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "semestre": {
+                  "type": "string",
+                  "example": "2026-I"
+                },
+                "notaFinal": {
+                  "type": "number",
+                  "example": 7
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Matrícula no encontrada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "404 Not Found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
